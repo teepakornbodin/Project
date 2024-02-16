@@ -1,0 +1,48 @@
+สร้าง Schema กำหนดความเกี่ยวข้องของข้อมูล
+สร้างหน้าแรกของผู้ใช้
+ทำ Api ดึงข้อมูลจาก Mongodb
+เช็คข้อมูลใน  data ว่ามีจริงมั้ย ถ้ามีส่งผู้ใช้ไปหน้าแสดงข้อมูล
+หน้าแสดงข้อมูลของผู้ใช้
+
+สร้างหน้าการจองห้องพัก
+แสดงข้อมูลห้องพักทั้งหมด
+ผู้ใช้สามารถเลือกจำนวนแมวที่รับฝากต่อ1ห้อง
+แสดงราคารวม
+
+สร้างหน้าผู้ให้บริการ (โรงแรม)
+เชื่อมต่อกับฐานข้อมูล
+ทำ Api เพิ่มข้อมมูลจาก Mongodb
+เพิ่มข้อมูลผู้ใช้ใหม่ลง Mongdb
+
+สิ่งที่ต้องทำเพิ่ม
+ดึงข้อมูลที่มีการอัปเดตอยู่ตลอดลงหน้าผู้ใช้
+ทำระบบกรอกข้อมูลยืนยันชื่อในการจองห้อง
+ทำหน้าบิลการจองห้อง มีสถานที่,เวลา,ห้องแบบไหน,และราคา
+ทำ Api สำหรับอัปเดปข้อมูลเพราะ 3 ตัวแปร
+ระบบเช็คว่ามีข้อมูลจริงมั้ยก่อนส่งไปหน้าอัปเตด
+หน้าสำหรับอัปเดปข้อมูลให้กับผู้ใช้ แบบ updateOne
+ทำหน้าเว็ปให้รองรับทุกอุปกรณ์
+
+50% ++
+
+ปัญหา
+การเชื่อมต่อกับฐานข้อมูล Mongodb ที่มีคนสอนกับ เวอร์ชั้นเก่าไป
+แก้
+ดูวิธีจาก dosc ของ next js
+การดึงข้อมูลลงมาแสดง ข้อมูลจากค่าเริ่มต้นลงมาแสดงผล
+แก้
+เพิ่มระบุ path ของตัวแปรให้ถูกต้องไม่แสดงค่าว่าง
+
+
+
+Create an API to retrieve data from MongoDB.
+Create a user's home page.
+Make an API for updating information about health, food, and excretion.
+Create a booking page.
+Create a system for filling in name confirmation information for room reservations.
+Make a room reservation bill There is a location, time, type of room, and price.
+Users can choose the number of cats that can be kept per room.
+Create a page for a service provider. (hotel)
+Create an API to add data from MongoDB.
+A page for updating information for users in real time.
+Make the website to support any device.
