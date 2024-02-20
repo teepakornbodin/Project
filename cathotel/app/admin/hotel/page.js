@@ -1,7 +1,7 @@
 'use client'
+import React, { useState } from 'react';
 import { addData } from '@/app/api/pet/action';
-import React from 'react'
-import { kanit, inter } from "@/utils/font";
+import { kanit, inter } from '@/utils/font';
 
 function HomePage() {
   return (
@@ -52,7 +52,7 @@ function HomePage() {
           <div className="flex flex-col">
             <label className="px-2">เพศ</label>
 
-            <select name="gender" className="px-2 rounded-lg">
+            <select name="gender" type='text' className="px-2 rounded-lg">
               <option value="MALE">ชาย</option>
               <option value="FE">หญิง</option>
             </select>
