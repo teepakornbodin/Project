@@ -4,11 +4,12 @@ import { addData } from '@/app/api/pet/action';
 import { kanit, inter } from '@/utils/font';
 
 function HomePage() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <form
       action={addData}
     >
-      <div className={`${kanit.className} flex flex-col items-center px-1.5 py-2`}>
+      <div className={`${kanit.className} flex flex-col items-center px-1.5 py-2 bg-blue-300 h-screen`}>
 
         <div className="bg-purple-500 rounded-full py-2 w-full flex flex-col items-center shadow-lg ">
           <h1 className="text-2xl">สร้างข้อมูลลูกค้าใหม่</h1>
@@ -90,11 +91,25 @@ function HomePage() {
                   font-bold
                   shadow-lg
                   hover:bg-green-700"
+            onClick={() => setShowModal(true)}
           >สร้างข้อมูล</button>
         </div>
 
-        {/* {error ? <div className="py-5 text-xl text-red-500">{error}</div> : null}
-        {message ? <div className="py-5 text-xl text-green-500">{message}</div> : null} */}
+
+        {showModal ? (
+          <div className=" bg-green-300 mt-10 flex justify-center items-center flex-col w-72 rounded-lg shadow-xl h-auto p-2">
+            {/* <Image src={Trophy} width={100} height={100} objectFit="contain" /> */}
+            <h2 className="text-base mt-2 mx-4 text-gray-700 font-semibold text-center">
+              สร้างข้อมูลสำเร็จ
+            </h2>
+            <button
+              className="my-5 w-auto px-8 h-10 bg-blue-400 text-white rounded-md shadow hover:shadow-lg font-semibold"
+              onClick={() => setShowModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        ) : null}
       </div>
     </form>
   )
