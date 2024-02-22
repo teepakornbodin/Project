@@ -1,5 +1,6 @@
 import React from "react";
 import CheckStock from "./checkStock";
+import ComplanStock from "./complan";
 const Stockpage = () => {
 
 
@@ -7,6 +8,7 @@ const Stockpage = () => {
   return (
     <>
     <CheckStock/>
+    <ComplanStock/>
     </>
 
 );
