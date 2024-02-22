@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Animate from "@/components/animate"
-import HomePage from "./adminUpdate";
+import HomePage from "./adminCreate";
 interface IPet {
     code: string;
     name: string;
