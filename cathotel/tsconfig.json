@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/admin/hotel/page.tsx", "app/admin/hotel/adminUpdate.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/admin/hotel/page.tsx", "app/admin/hotel/adminCreate.js"],
   "exclude": ["node_modules"]
 }
