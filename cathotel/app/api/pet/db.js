@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+//import MONGODB_URI from ".evn";
 const connection = {};
 
 async function connect() {
