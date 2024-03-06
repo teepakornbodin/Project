@@ -12,7 +12,7 @@ interface IPet {
     breed: string;
     gender: string;
     color: string;
-    age: number;
+    age: Date;
     created_at: string;
   }
 

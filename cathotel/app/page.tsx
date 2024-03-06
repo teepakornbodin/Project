@@ -18,7 +18,7 @@ const Home = () => {
       const data = await response.json();
       if (response.status != 200) {
         setErrorMessage(data.message);
-      }else{
+      } else {
         router.push(`/pet/${data.data.code}`);
 
       }
@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <div className="bg-gradient-to-b from-white via-transparent to-purple-200 h-screen flex flex-col justify-center  items-center">
       <div>
-      <a href="https://imgbb.com/"><img src="https://i.ibb.co/fFbb18j/0206-1-unscreen.gif" alt="0206 1 unscreen"  /></a>
+        <img src="https://i.ibb.co/fFbb18j/0206-1-unscreen.gif" alt="0206 1 unscreen" />
       </div>
       <div className={`${kanit.className} flex justify-center flex-col p-6`}>
         <input
@@ -53,7 +53,7 @@ const Home = () => {
         ) : (
           ""
         )}
-        <button className="bg-sky-400 rounded-3xl py-2 p-1 drop-shadow-lg "> 
+        <button className="bg-sky-400 rounded-3xl py-2 p-1 drop-shadow-lg ">
           <p className="text-white font-bold text-xl">Service/Promotion</p>
           <p className={`${kanit.className} text-white text-lg`}>บริการ/โปรโมชั่น</p>
         </button>
