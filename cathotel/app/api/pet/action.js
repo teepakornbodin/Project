@@ -1,21 +1,15 @@
 'use server'
-import Pet from "@/models/Pet"
-import db from "./db"
-import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
+import Pet from "../../../models/pet"
 
-export const addData = async(FormData) => {
-    const {code, name, user, breed, gender, color, age, create_at} = 
-    Object.fromEntries(FormData);
+export const addData = async (FormData) => {
+    const { code, name, user, breed, gender, color, age, create_at, check_out, health, food, excretion } =
+        Object.fromEntries(FormData);
     try {
-        db.connect()
         const newPet = new Pet({
-            code, name, user, breed, gender, color, age, create_at
+            code, name, user, breed, gender, color, age, create_at, check_out, health, food: "NOT EATEN", excretion
         })
         await newPet.save()
     } catch (error) {
         throw new Error("Failed to Create Data" + error)
     }
-    // revalidatePath("/")
-    // redirect("/")
 }

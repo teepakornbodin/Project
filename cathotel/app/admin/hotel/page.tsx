@@ -14,6 +14,10 @@ interface IPet {
     color: string;
     age: Date;
     created_at: string;
+    check_out: Date;
+    health: string;
+    food: string; 
+    excretion: string;
   }
 
   const PetAdimn = ({ params }:{ params: { id: string }, }) => {

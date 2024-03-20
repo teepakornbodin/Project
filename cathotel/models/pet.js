@@ -1,40 +1,21 @@
-import { BSON, Double, Int32, ObjectId } from "mongodb";
-import { Schema, model, models } from "mongoose";
+import mongoose from 'mongoose';
 
-//การกำหนด tpye
-const PetSchema = new Schema({
-    code: {
-        type: String,
-    },
-  name: {
-    type: String,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User", //พิเศษ
-    default: null,
-  },
-  breed: {
-    type: String,
-  },
-  gender: {
-    type: String,
-    enum: ["MALE", "FE", "PENDING"],
-    default: "MALE",
-  },
-  color: {
-    type: String,
-  },
-  age: {
-    type: Number,
-    default: 1
-  },
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const PetSchema = new mongoose.Schema({
+  code: { type: String, required: true },
+  name: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+  breed: { type: String, required: true },
+  gender: { type: String, enum: ['MALE', 'FE', 'PENDING'], default: 'MALE' },
+  color: { type: String, required: true },
+  age: { type: Date, required: true },
+  created_at: { type: Date, default: Date.now },
+  check_out: { type: Date },
+  health: { type: String, enum: ['GOOD', 'BAD'], default: 'GOOD' },
+  food: { type: String, enum: ['NOT EATEN', 'EATEN'], default: 'NOT EATEN' },
+  excretion: { type: String, enum: ['EXCRETED', 'NOT EXCRETED'], default: 'NOT EXCRETED' },
+}, { collection: 'pet' });
 
-const Pet = models.Pet || model("Pet", PetSchema, 'pet');
+// Export the model here
+const Pet = mongoose.models.Pet || mongoose.model('Pet', PetSchema);
 
 export default Pet;
