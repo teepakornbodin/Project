@@ -35,7 +35,7 @@ const ServicePage = () => {
           </button>
           </a>
 
-          <a className="mt-5 text-slate-700 bg-white hover:border-4 border-rose-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 drop-shadow-lg flex-row justify-centen ml-12 mr-12 md:ml-44 md:mr-44 ">
+          <a href="/admin/updateInfo" className="mt-5 text-slate-700 bg-white hover:border-4 border-rose-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 drop-shadow-lg flex-row justify-centen ml-12 mr-12 md:ml-44 md:mr-44 ">
         <button  className=" items-center flex flex-row ">
           <div className={`${mitr.className} h-32 w-auto flex items-center text-3xl `}>อัพเดตข้อมูลแมว</div>
           <div className=" justify-end items-end">
