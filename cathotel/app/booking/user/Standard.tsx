@@ -31,18 +31,19 @@ const BookingUser = () => {
   return (
     <div className="bg-slate-200 w-full flex flex-row justify-start items-start lg:justify-center lg:items-center">
       <div className="mt-8 ml-5 mr-5 rounded-3xl bg-white drop-shadow-2xl grid grid-flow-col justify-center items-start">
-        <div className="flex justify-items-center h-full w-full w-40 object-cover">
+        <div className="flex justify-items-center h-full  object-cover">
           <img
-            className="justify-center rounded-3xl"
+            className="justify-center rounded-3xl "
             src="https://img2.pic.in.th/pic/cat1.jpeg"
             alt="cat1.jpeg"
+            style={{ maxWidth: '160px', maxHeight: 'auto' }}
           />
         </div>
         <div className="flex flex-col justify-center items-center">
           <p className={`${kanit.className} font-bold text-4xl mt-5`}>Standard</p>
           <img className="" src="https://img5.pic.in.th/file/secure-sv1/star.png" alt="star.png" />
           <p className="sm:text-3xl font-bold">จำนวนน้องแมว/ห้อง: {selectedIndices.length}</p>
-          <div className="grid grid-flow-col mr-4 ml-4">
+          <div className="grid grid-flow-col mr-4 ml-4 ">
             {[0, 1, 2, 3].map((index) => (
               <img
                 key={index}

@@ -2,23 +2,13 @@
 import React, { useState } from 'react';
 import { addData } from '@/app/api/pet/action';
 import { kanit, inter } from '@/utils/font';
-import Modal from '../hotel/modal';
 
 function HomePage() {
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({});
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formDataObject = Object.fromEntries(new FormData(e.target));
-    setFormData(formDataObject);
-    await addData(new FormData(e.target));
-    setShowModal(true);
-  };
-
   return (
     <body className='bg-blue-300 h-screen'>
-      <form onSubmit={handleSubmit}    >
+      <form
+        action={addData}      >
         <div className={`${kanit.className} flex flex-col items-center px-1.5 py-2 bg-blue-300 text-2xl w-full h-screen`}>
 
           <div className="bg-purple-500 rounded-full py-5 w-full flex flex-col items-center shadow-lg ">
@@ -33,6 +23,8 @@ function HomePage() {
                 className="px-2 rounded-lg py-1"
                 name='name'
                 type="text"
+              // onChange={(e) => setName(e.target.value)}
+              // value={name}
               />
             </div>
 
@@ -42,8 +34,9 @@ function HomePage() {
                 className="px-2 rounded-lg py-1"
                 name='code'
                 type="number"
+              // onChange={(e) => setPassword(e.target.value)}
+              // value={password}
               />
-
             </div>
 
             <div className="flex flex-col col-span-2 py-2">
@@ -52,6 +45,8 @@ function HomePage() {
                 className="px-2 rounded-lg py-1"
                 name='breed'
                 type="text"
+              // onChange={(e) => setDetail(e.target.value)}
+              // value={detail}
               />
             </div>
 
@@ -70,6 +65,8 @@ function HomePage() {
                 className="px-2 rounded-lg py-1"
                 name='color'
                 type="text"
+              // onChange={(e) => setColor(e.target.value)}
+              // value={color}
               />
             </div>
 
@@ -79,6 +76,8 @@ function HomePage() {
                 className="px-2 rounded-lg py-1 text-xl"
                 name='age'
                 type="date"
+              // onChange={(e) => setAge(e.target.value)}
+              // value={age}
               />
             </div>
           </div>
@@ -95,6 +94,7 @@ function HomePage() {
               onClick={() => setShowModal(true)}
             >สร้างข้อมูล</button>
           </div>
+
 
           {showModal ? (
             <div className=" bg-green-300 mt-10 flex justify-center items-center flex-col w-72 rounded-lg shadow-xl h-auto p-2">
