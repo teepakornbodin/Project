@@ -180,7 +180,7 @@ const ReservationPageStandard = () => {
                   Start Date
                 </label>
                 <input
-                  type="datetime-local"
+                  type="date"
                   name="start_date"
                   id="start_date"
                   value={formData.start_date || ""}
