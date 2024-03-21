@@ -90,7 +90,7 @@ interface IPet {
             alt="Clock"
           />
         </div>
-        <span className={`${kanit.className} text-slate-700 mr-auto flex w-20 flex-grow: 1 justify-center text-xl`}> {petData?.update_time || "ไม่ระบุ"} </span>
+        <span className={`${kanit.className} text-slate-700 mr-auto flex w-20 flex-grow: 1 justify-center text-lg`}> {petData?.update_time || "ไม่ระบุ"} </span>
       </div>
       <div className="relative mt-9 mr-2 bg-rose-300 rounded-3xl h-14 flex items-center justify-center">
         <span className={`${kanit.className} text-slate-700 font-bold ml-auto flex justify-center`}>Mental health</span>
