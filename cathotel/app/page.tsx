@@ -54,7 +54,7 @@ const Home = () => {
           ""
         )}
         <button onClick={() => router.push(`/booking/user`)} className="bg-sky-400 rounded-3xl py-2 p-1 drop-shadow-lg ">
-          <p className="text-white font-bold text-xl py-1.5">Service/Promotion
+          <p className="text-white font-bold text-xl py-1.5">Reservation
           </p>
     
         </button>

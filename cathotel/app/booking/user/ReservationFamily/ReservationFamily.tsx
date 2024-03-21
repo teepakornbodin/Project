@@ -119,7 +119,7 @@ const ReservationPageFamily = () => {
                   {selectedRooms}
                 </p>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col text-center">
                 <p className="font-bold text-xl">Room Type</p>
                 <p className="text-3xl text-gray-800 font-bold ">
                 Family
