@@ -54,7 +54,9 @@ const PetAdimn = ({ params }: { params: { id: string }, }) => {
 
   return (
     <>
+    <div className="bg-blue-300  h-auto flex">
       <HomePage />
+      </div>
     </>
 
 

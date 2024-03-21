@@ -1,6 +1,6 @@
 import React from "react";
 import { kanit, inter, mitr } from "@/utils/font";
-
+import { useRouter } from "next/navigation";
 import Link from "@/node_modules/next/link";
 
 const ServicePage = () => {
