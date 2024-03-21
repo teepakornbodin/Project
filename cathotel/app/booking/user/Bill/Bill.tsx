@@ -23,7 +23,7 @@ const BillPage = () => {
   const bookingId = searchParams.get("id");
 
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [mobile, setMobile] = useState("");
   const [start_date, setStartDate] = useState("");
   const [end_date, setEndDate] = useState("");
   const [status, setStatus] = useState("ACTIVE");
@@ -41,7 +41,7 @@ const BillPage = () => {
         }
         const data = await response.json();
         setName(data.name);
-        setPhone(data.phone);
+        setMobile(data.mobile);
         setStartDate(data.start_date);
         setEndDate(data.end_date);
         setStatus(data.status);
@@ -95,7 +95,7 @@ const BillPage = () => {
         <p className="mt-1">
           <span className="text-base font-medium text-gray-500">
             {" "}
-            Phone Number: {phone}{" "}
+            Phone Number: {mobile}{" "}
           </span>
         </p>
         <p className="mt-1">
