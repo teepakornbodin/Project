@@ -1,0 +1,15 @@
+
+[
+    {
+        "city": "ACTIVE",
+        "emoticon": "😻"
+    },
+    {
+        "city": "INACTIVE",
+        "emoticon": "😾"
+    },
+    {
+        "city": "PENDING",
+        "emoticon": "😼"
+    }
+]

@@ -1,29 +1,51 @@
 "use client";
-import { kanit, inter } from "@/utils/font";
+import { kanit, inter, mitr } from "@/utils/font";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import moment from 'moment';
 import children from "@/components/animate"
+
 interface IPet {
-    code: string;
-    name: string;
-    user: string;
-    breed: string;
-    gender: string;
-    color: string;
-    age: number;
-    created_at: string;
+  _id: string;
+  code: string;
+  name: string;
+  user: string;
+  breed: string;
+  gender: string;
+  color: string;
+  age: Date;
+  created_at: string;
+  check_out: Date;
+  health: string;
+  food: string;
+  excretion: string;
+  update_time: string;
+    
   }
 
   const PetProfile = ({ petData }: { petData: IPet | null }) => {
-    const createdAt = moment("2024-02-04T21:00:00+07:00").subtract(1, "day");
 
-    const timeRemaining = moment().diff(createdAt, "seconds");
-    const days = Math.floor(timeRemaining / 86400);
-    const hours = Math.floor((timeRemaining % 86400) / 3600);
-    const minutes = Math.floor((timeRemaining % 3600) / 60); 
-    const seconds = Math.floor(timeRemaining % 60);
+    const formatAge = (age: Date): string => {
+      if (age) {
+        if (age instanceof Date) {
+          const diff = Date.now() - age.getTime();
+          const ageDate = new Date(diff);
+          const years = ageDate.getUTCFullYear() - 1970;
+          const months = ageDate.getUTCMonth();
+          return `${years} ปี ${months} เดือน `;
+        } else {
+          return "ไม่สามารถระบุอายุได้";
+        }
+      } else {
+        return "ไม่ระบุ";
+      }
+    };
+  
+    // Perform null check on petData before accessing its properties
+    const age = petData ? new Date(petData.age) : null;
+    const formattedAge = age ? formatAge(age) : "ไม่ระบุอายุ";
+
 
     const router = useRouter();
  
@@ -50,12 +72,12 @@ interface IPet {
     <div className="flex w-1/2 flex-col ml-2">
       <div className="top-10 right-8 grid grid-cols-1 content-between gap-10 rounded-lg bg-white p-0 mr-3 ">
         <div className="rounded-3xl bg-rose-300 w-full h-10 text-center flex place-content-center mt-[-5px] mb-[-5px] drop-shadow-xl " >
-          <span className={`${kanit.className} text-slate-700 font-bold text-left w-20 mr-auto ml-5 mt-2`}>ชื่อ</span>
+          <span className={`${kanit.className} text-slate-600 font-bold text-left w-20 mr-auto ml-5 mt-2`}>Name</span>
           <p className={`${kanit.className} text-slate-700 text-2xl font-bold w-full mt-1 mr-5`}>{petData?.name || null}</p>
         </div>
         <div className="rounded-3xl bg-rose-300 w-full h-10 text-center flex place-content-center mt-[-5px] mb-[-5px] drop-shadow-xl">
-          <span className={`${kanit.className} text-slate-700 font-bold text-left w-20 mr-auto ml-5 mt-2`}>อายุ</span>
-          <p className={`${kanit.className} text-slate-700 text-2xl font-bold w-full mt-1 mr-5`}>{petData?.age || "ไม่ระบุ"}</p>
+          <span className={`${kanit.className} text-slate-600 font-bold text-left w-20 mr-auto ml-5 mt-2`}>Age</span>
+          <p className={`${kanit.className} text-slate-700 sm:text-2xl text-sm font-bold w-full mt-1 mr-5 flex justify-center items-center`}>{formattedAge}</p>
         </div>
       </div>
 
@@ -68,19 +90,10 @@ interface IPet {
             alt="Clock"
           />
         </div>
-        <span className={`${kanit.className} text-slate-700 mr-auto flex w-20 flex-grow: 1 justify-center`}>
-          <span className="mx-1">{days}</span>
-          วัน
-          <span className="mx-1">{hours}</span>
-          ชม.
-          <span className="mx-1">{minutes}</span>
-          น.
-          {/* :
-          <span className="mx-1">{seconds}</span> */}
-          </span>
+        <span className={`${kanit.className} text-slate-700 mr-auto flex w-20 flex-grow: 1 justify-center text-xl`}> {petData?.update_time || "ไม่ระบุ"} </span>
       </div>
       <div className="relative mt-9 mr-2 bg-rose-300 rounded-3xl h-14 flex items-center justify-center">
-        <span className={`${inter.className} text-slate-700 font-weight-800 ml-auto`}>Mental health </span>
+        <span className={`${kanit.className} text-slate-700 font-bold ml-auto flex justify-center`}>Mental health</span>
         <div className="ml-auto bg-white rounded-3xl h-14 sm:w-13 place-items-end max-w-full drop-shadow-lg"> 
           <img
             src="https://img2.pic.in.th/pic/Group-9.png"
@@ -89,7 +102,11 @@ interface IPet {
           />
         </div>
       </div>
-      <div className=" bg-white rounded-3xl h-28 place-items-end mt-[-21px] mb-[-5px] mr-2 " />
+      <div className=" bg-white rounded-3xl h-28 place-items-end mt-[-21px] mb-[-5px] mr-2 " >
+        <div className={`${kanit.className} flex justify-center font-bold items-center text-2xl mt-12 text-slate-600`}>
+          {petData?.health || "ไม่ระบุ"}
+        </div>
+      </div>
     </div>
   </div> 
 
@@ -102,14 +119,17 @@ interface IPet {
           alt="Brian"
         />
       </div>
-      <span className={`${inter.className} text-slate-700 text-2xl font-weight-800 mr-auto`}>Food </span>
+      <span className={`${kanit.className} text-slate-700 text-2xl font-bold font-weight-800 mr-auto`}>Food </span>
     </div>
-    <div className="relative mt-2 items-center justify-center bg-white rounded-3xl h-14 mr-3"></div>
+    <div className="relative mt-2 items-center justify-center bg-white rounded-3xl h-14 mr-3">
+      <div className={`${inter.className} flex justify-center items-end mt-4 text-lg font-bold text-slate-600`}>
+      {petData?.food || "ไม่ระบุ"}</div>
+      </div>  
   </div>
 
   <div className="mb-9 grid grid-rows-2">
     <div className="relative flex items-center justify-center w-1/2 bg-white rounded-3xl h-14 mr-3 ml-auto">
-      <span className={`${inter.className} text-slate-700 text-2xl font-weight-800 ml-auto`}>Excretion</span>
+      <span className={`${kanit.className} text-slate-700 text-2xl font-bold ml-auto`}>Excretion</span>
       <div className="ml-auto bg-emerald-100 rounded-3xl h-14 flex items-center justify-center max-w-full drop-shadow-lg">
         <img
           src="https://img5.pic.in.th/file/secure-sv1/Excretion.png"
@@ -118,7 +138,11 @@ interface IPet {
         />
       </div>
     </div>
-    <div className="relative mt-2 items-center justify-center bg-white rounded-3xl h-14 mr-3"></div>
+    <div className="relative mt-2 items-center justify-center bg-white rounded-3xl h-14 mr-3">
+      <div className={`${inter.className} flex justify-center items-center mt-4 text-slate-600`}>
+        {petData?.excretion || "ไม่ระบุ"}
+      </div>
+    </div>
   </div>
 </div>
 
