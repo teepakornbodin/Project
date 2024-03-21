@@ -33,12 +33,12 @@ interface IPet {
           const ageDate = new Date(diff);
           const years = ageDate.getUTCFullYear() - 1970;
           const months = ageDate.getUTCMonth();
-          return `${years} ปี ${months} เดือน `;
+          return `${years} Year ${months} Month `;
         } else {
-          return "ไม่สามารถระบุอายุได้";
+          return "Can't tell age";
         }
       } else {
-        return "ไม่ระบุ";
+        return "None";
       }
     };
   
@@ -62,7 +62,7 @@ interface IPet {
 
       <div className="relative mt-7 flex items-center justify-center bg-white rounded-3xl h-14">
         <div className="mr-auto bg-cyan-400 rounded-3xl h-14 sm:w-13 flex items-center justify-center max-w-full drop-shadow-lg">
-          <span className={`${kanit.className} text-slate-700 text-lg font-bold w-20 flex justify-center`}>รหัส</span>
+          <span className={`${kanit.className} text-slate-700 text-lg font-bold w-20 flex justify-center`}>Code</span>
         </div>
         <p className={`${kanit.className} text-slate-700 text-2xl font-bold w-20 text-center mr-auto `}>{petData?.code}</p>
       </div>

@@ -3,8 +3,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import html2canvas from "html2canvas";
+import { useRouter } from "next/navigation";
 
 const BillPage = () => {
+  const router = useRouter();
   const [selectedRooms, setSelectedRooms] = useState(0);
   const [price, setPrice] = useState(0);
 
@@ -123,7 +125,10 @@ const BillPage = () => {
         </p>
 
         <p
-          onClick={handleSaveAsImage}
+          onClick={() => {
+            handleSaveAsImage();
+            router.push(`/`);
+          }}
           className="flex justify-center w-full py-3 mt-4 text-sm font-medium text-white bg-purple-600 border border-indigo-600 rounded active:text-indigo-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring "
         >
           Confirmed

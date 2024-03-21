@@ -109,21 +109,21 @@ const ReservationPageSuit = () => {
         <div className=""></div>
         <div className="rounded-lg ">
           <div className="mt-14 max-w-md mx-auto bg-purple-300 rounded-3xl shadow-md overflow-hidden md:max-w-2xl">
-            <div className="bg-violet-5000 text-gray-100 font-bold py-2 px-4 rounded-lg shadow-sm flex items-center mx-auto">
-              <div className=" max-w-md mx-auto bg-white rounded-3xl shadow-md overflow-hidden md:max-w-2xl text-black font-bold py-2 px-4">
+            <div className="bg-violet-5000 text-gray-100 font-bold py-2 px-4 rounded-lg shadow-sm flex  justify-center items-center mx-auto">
+              <div className=" flex flex-col justify-center items-center max-w-md mx-auto bg-white rounded-3xl shadow-md overflow-hidden md:max-w-2xl text-black font-bold py-2 px-4">
                 <img
                   className="justify-center rounded-3xl"
                   src="https://img2.pic.in.th/pic/pink.png"
                   alt="pink.jpeg"
                 />
-                <p className="text-2xl text-gray-800 font-bold focus:outline-none ml-6">
+                <p className="text-2xl text-gray-800 font-bold focus:outline-none">
                   {selectedRooms}
                 </p>
               </div>
               <div className="flex flex-col">
-                <p className="ml-11 font-bold text-xl">Room Type</p>
-                <p className="ml-8 text-3xl text-gray-800 font-bold ">
-                  Standard
+                <p className="font-bold text-xl">Room Type</p>
+                <p className=" text-3xl text-gray-800 font-bold ">
+                Suit
                 </p>
               </div>
             </div>

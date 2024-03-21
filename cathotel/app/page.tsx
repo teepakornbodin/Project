@@ -38,7 +38,7 @@ const Home = () => {
       <div className={`${kanit.className} flex justify-center flex-col p-6`}>
         <input
           type="text"
-          placeholder="รหัสสัตว์เลี้ยงของ ..."
+          placeholder="Your cat code..."
           maxLength={4}
           onChange={(e) => {
             setPetCode(e.target.value);
@@ -53,9 +53,10 @@ const Home = () => {
         ) : (
           ""
         )}
-        <button className="bg-sky-400 rounded-3xl py-2 p-1 drop-shadow-lg ">
-          <p className="text-white font-bold text-xl">Service/Promotion</p>
-          <p className={`${kanit.className} text-white text-lg`}>บริการ/โปรโมชั่น</p>
+        <button onClick={() => router.push(`/booking/user`)} className="bg-sky-400 rounded-3xl py-2 p-1 drop-shadow-lg ">
+          <p className="text-white font-bold text-xl py-1.5">Service/Promotion
+          </p>
+    
         </button>
       </div>
     </div>
