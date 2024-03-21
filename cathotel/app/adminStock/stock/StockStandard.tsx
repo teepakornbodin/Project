@@ -2,7 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { kanit, inter } from "@/utils/font";
-
+import { useRouter } from "next/navigation";
+import { deflate } from "zlib";
+import RoomType from "./page";
 interface IBooking {
   name: string;
   start_date: string | null;
@@ -10,8 +12,9 @@ interface IBooking {
   guest: string | null;
 }
 const StockStandard = () => {
+  const router = useRouter();
   const [roomData, setRoomData] = useState<IBooking[]>([]);
-
+  const typeRoom = "STANDARD";
   const fetchRoomData = async () => {
     try {
       const response = await fetch(`/api/booking/room-type/STANDARD`, {
@@ -37,6 +40,7 @@ const StockStandard = () => {
   }, []);
 
   return (
+    <button onClick={() => router.push(`stock/${typeRoom}`)}>
     <div className="w-full justify-center grid grid-flow-row -mt-7">
       {/* Deluxe */}
       <div className="flex flex-col justify-center items-center ">
@@ -67,6 +71,8 @@ const StockStandard = () => {
       </div> */}
       </div>
     </div>
+    </button>
   );
 };
 export default StockStandard;
+

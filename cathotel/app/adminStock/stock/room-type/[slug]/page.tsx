@@ -1,33 +1,33 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
+import { kanit, inter } from "@/utils/font";
+import { useRouter } from "next/navigation";
 interface IBooking {
   name: string;
   start_date: string | null;
   end_date: string | null;
   guest: string | null;
 }
-const RoomType = ({ params }: { params: { slug: string } }) => {
-  const [roomData, setRoomData] = useState<IBooking[]>([
-    {
-      name: "",
-      start_date: null,
-      end_date: null,
-      guest: null,
-    },
-  ]);
+const StockRoomtype = ({ typeRoom }: { typeRoom: string | null }) => {
+  const router = useRouter();
+  const [roomData, setRoomData] = useState<IBooking[]>([]);
 
   const fetchRoomData = async () => {
+    if (!typeRoom) {
+      console.error('Type room is missing');
+      return;
+    }
     try {
-      const response = await fetch(`/api/booking/room-type/${params.slug}`, {
+      const response = await fetch(`/api/booking/room-type/${typeRoom}`, {
         headers: {
           "Content-Type": "application/json",
         },
         method: "GET",
       });
-
+  
       if (!response.ok) {
+        throw new Error("Failed to fetch room data");
       } else {
         const data = await response.json();
         setRoomData(data);
@@ -37,32 +37,15 @@ const RoomType = ({ params }: { params: { slug: string } }) => {
     }
   };
 
-  useEffect(() => {
-    if (params.slug) {
-      fetchRoomData();
-    }
-  }, [params.slug]);
-
   return (
-    <div className="flex flex-col w-full h-full justify-center text-center center-center">
-      <h2>
-        {params.slug} Total: {roomData.length} ห้อง
-      </h2>
-      {roomData.map((item, index) => (
-        <div
-          className="w-full h-full bg-green-400 flex flex-col   border-black border-2 mb-4"
-          key={index}
-        >
-          <p className="font-semibold">{item?.name || "N/A"}</p>
-          <p>
-            {new Date(item?.start_date || "").toLocaleDateString() || "N/A"}
-          </p>
-          <p>{new Date(item?.end_date || "").toLocaleDateString() || "N/A"}</p>
-          <p>{item?.guest || "N/A"}</p>
-        </div>
-      ))}
-    </div>
-  );
+    <div>
+    {roomData.map((room, index) => (
+      <div key={index}>
+        <p>{room.name}</p>
+        {/* แสดงข้อมูลอื่น ๆ ของห้องพักที่ต้องการ */}
+      </div>
+    ))}
+  </div>
+);
 };
-
-export default RoomType;
+export default StockRoomtype;

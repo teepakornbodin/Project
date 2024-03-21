@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
 interface IBooking {
   name: string;
   mobile: string | null;
@@ -24,6 +25,7 @@ const ReservationPageStandard = () => {
     status: "ACTIVE",
   });
   const [isError, setIsError] = useState<string | null>(null);
+  const router = useRouter();
 
   const SaveBooking = async (formData: IBooking) => {
     try {
@@ -34,11 +36,12 @@ const ReservationPageStandard = () => {
         !formData.end_date ||
         !formData.guest
       ) {
+        console.error(formData);
         setIsError("Please fill all required fields!");
         return;
       }
 
-      const response = await fetch(`/api/booking/route`, {
+      const response = await fetch(`/api/booking`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,8 +53,8 @@ const ReservationPageStandard = () => {
         throw new Error("Network response was not ok");
       } else {
         setIsError(null);
-
-        const data: string = await response.json();
+        const data = await response.json();
+        router.push(`/booking/user/Bill?id=${data._id}`);
       }
     } catch (error) {
       console.error(error);
@@ -67,6 +70,11 @@ const ReservationPageStandard = () => {
     if (storedRooms && storedPrice) {
       setSelectedRooms(parseInt(storedRooms, 10));
       setPrice(parseInt(storedPrice, 10));
+
+      setFormData({
+        ...formData,
+        guest: storedRooms,
+      });
     }
   }, []);
 
@@ -90,6 +98,7 @@ const ReservationPageStandard = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     SaveBooking(formData);
     setLocalStorageData();
   };
@@ -199,44 +208,18 @@ const ReservationPageStandard = () => {
               </div>
             </div>
           </div>
-
-          <div className="mb-5">
-            <label
-              htmlFor="status"
-              className="mb-3 block text-base font-medium text-[#3a074d]"
-            >
-              Status
-            </label>
-            <select
-              id="status"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-            >
-              <option value="ACTIVE">ACTIVE</option>
-              <option value="INACTIVE">INACTIVE</option>
-              <option value="PENDING">PENDING</option>
-            </select>
-          </div>
-
           {isError && <p className="text-red-600 text-sm"> {isError}</p>}
 
-          <Link href="/booking/user/Bill">
-            <div className="relative">
-              <button
-                className="mt-2 submit_btn bg-black text-white rounded-full px-5 py-3 text-xl font-bold shadow-lg w-full  hover:bg-purple-300  focus:outline-none"
-              >
-                Book now
-              </button>
-            </div>
-            
-          </Link>
-          {JSON.stringify(formData)}
+          <button
+            type="submit"
+            className="mt-2 mb-6 submit_btn bg-black text-white rounded-full px-5 py-3 text-xl font-bold shadow-lg w-full  hover:bg-purple-300  focus:outline-none"
+          >
+            Book now
+          </button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default ReservationPageStandard;

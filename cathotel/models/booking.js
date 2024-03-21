@@ -20,7 +20,7 @@ const BookingSchema = new Schema({
   },
   room_type: {
     type: String,
-    enum: ["DELUXE", "STANDARD", "SUIT", "PREMIUM", "SUPERIOR"],
+    enum: ["DELUXE", "STANDARD", "SUIT", "PREMIUM", "SUPERIOR", "FAMILY"],
     default: "STANDARD",
   },
   

@@ -1,26 +1,65 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
-import Link from "@/node_modules/next/link";
+import { useRouter } from "next/navigation";
+interface IBooking {
+  name: string;
+  mobile: string | null;
+  start_date: string | null;
+  end_date: string | null;
+  guest: string | null;
+  room_type: string;
+  status: string;
+}
 
-function ReservationPageFamily() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [start_date, setStartDate] = useState("");
-  const [end_date, setEndDate] = useState("");
-  const [status, setStatus] = useState("ACTIVE");
+const ReservationPageFamily = () => {
+  const [formData, setFormData] = useState<IBooking>({
+    name: "",
+    mobile: null,
+    start_date: null,
+    end_date: null,
+    guest: null,
+    room_type: "FAMILY",
+    status: "ACTIVE",
+  });
+  const [isError, setIsError] = useState<string | null>(null);
+  const router = useRouter();
 
-  const setLocalStorageData = () => {
-    
-    localStorage.setItem("name", name);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("start_date", start_date);
-    localStorage.setItem("end_date", end_date);
-    localStorage.setItem("status", status);
+  const SaveBooking = async (formData: IBooking) => {
+    try {
+      if (
+        !formData.name ||
+        !formData.mobile ||
+        !formData.start_date ||
+        !formData.end_date ||
+        !formData.guest
+      ) {
+        console.error(formData);
+        setIsError("Please fill all required fields!");
+        return;
+      }
+
+      const response = await fetch(`/api/booking`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        setIsError(null);
+        const data = await response.json();
+        router.push(`/booking/user/Bill?id=${data._id}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-
 
   const [selectedRooms, setSelectedRooms] = useState(0);
   const [price, setPrice] = useState(0);
@@ -31,8 +70,38 @@ function ReservationPageFamily() {
     if (storedRooms && storedPrice) {
       setSelectedRooms(parseInt(storedRooms, 10));
       setPrice(parseInt(storedPrice, 10));
+
+      setFormData({
+        ...formData,
+        guest: storedRooms,
+      });
     }
   }, []);
+
+  const setLocalStorageData = () => {
+    localStorage.setItem("name", formData.name);
+    localStorage.setItem("mobile", formData.mobile || "");
+    localStorage.setItem("start_date", formData.start_date || "");
+    localStorage.setItem("end_date", formData.end_date || "");
+    localStorage.setItem("status", formData.status);
+    localStorage.setItem("selectedRooms", selectedRooms.toString());
+    localStorage.setItem("guest", selectedRooms.toString());
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    SaveBooking(formData);
+    setLocalStorageData();
+  };
 
   return (
     <div className="bg-pink-200 min-h-screen flex flex-row justify-center items-start">
@@ -47,132 +116,110 @@ function ReservationPageFamily() {
                   src="https://img2.pic.in.th/pic/pink.png"
                   alt="pink.jpeg"
                 />
-                <p className="text-2xl  text-gray-800  font-bold focus:outline-none ml-8">
-                  {" "}
+                <p className="text-2xl text-gray-800 font-bold focus:outline-none ml-6">
                   {selectedRooms}
                 </p>
               </div>
               <div className="flex flex-col">
-                <p className="ml-8 font-bold text-xl">Room Type</p>
-                <p className="ml-9 text-3xl  text-gray-800  font-bold ">
-                  Family
+                <p className="ml-11 font-bold text-xl">Room Type</p>
+                <p className="ml-8 text-3xl text-gray-800 font-bold ">
+                  Standard
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* fullName */}
-        <div className="mb-5 mt-8">
-          <label
-            htmlFor="name"
-            className="mb-3 block text-base font-medium text-[#07074D]"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          />
-        </div>
-
-        {/* PhoneNumber */}
-        <div className="mb-5">
-          <label
-            htmlFor="phone"
-            className="mb-3 block text-base font-medium text-[#3a074d]"
-          >
-            Phone Number
-          </label>
-          <input
-            type="text"
-            name="phone"
-            id="phone"
-            placeholder="Enter your phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          />
-        </div>
-
-        {/* Date */}
-        <div className="-mx-3 flex flex-wrap">
-          <div className="w-full px-3 sm:w-1/2">
-            <div className="mb-5">
-              <label
-                htmlFor="date"
-                className="mb-3 block text-base font-medium text-[#07074D]"
-              >
-                Start Date
-              </label>
-              <input
-                id="start_date"
-                type="date"
-                name="start_date"
-                value={start_date}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
-            </div>
-          </div>
-          <div className="w-full px-3 sm:w-1/2">
-            <div className="mb-5">
-              <label
-                htmlFor="date"
-                className="mb-3 block text-base font-medium text-[#07074D]"
-              >
-                End Date
-              </label>
-              <input
-                id="end_date"
-                type="date"
-                name="end_date"
-                value={end_date}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-5">
-          <label
-            htmlFor="Status"
-            className="mb-3 block text-base font-medium text-[#3a074d]"
-          >
-            Status
-          </label>
-          <select 
-          id="status"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-            <option value="week">ACTIVE</option>
-            <option value="month">INACTIVE</option>
-            <option value="year">PENDING</option>
-          </select>
-        </div>
-
-        <Link href="/booking/user/Bill">
-          <div className="relative">
-            <button
-              type="submit"
-              className="mt-2 submit_btn bg-black text-white rounded-full px-5 py-3 text-xl font-bold shadow-lg w-full  hover:bg-purple-300  focus:outline-none"
-              onClick={() => setLocalStorageData()}
+        <form onSubmit={handleSubmit}>
+          {/* fullName */}
+          <div className="mb-5 mt-8">
+            <label
+              htmlFor="name"
+              className="mb-3 block text-base font-medium text-[#07074D]"
             >
-              Book now
-            </button>
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
           </div>
-        </Link>
 
+          {/* PhoneNumber */}
+          <div className="mb-5">
+            <label
+              htmlFor="mobile"
+              className="mb-3 block text-base font-medium text-[#3a074d]"
+            >
+              Phone Number
+            </label>
+            <input
+              type="text"
+              name="mobile"
+              id="mobile"
+              placeholder="Enter your phone number"
+              value={formData.mobile || ""}
+              onChange={handleChange}
+              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+          </div>
+
+          {/* Date */}
+          <div className="-mx-3 flex flex-wrap">
+            <div className="w-full px-3 sm:w-1/2">
+              <div className="mb-5">
+                <label
+                  htmlFor="start_date"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Start Date
+                </label>
+                <input
+                  type="datetime-local"
+                  name="start_date"
+                  id="start_date"
+                  value={formData.start_date || ""}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="w-full px-3 sm:w-1/2">
+              <div className="mb-5">
+                <label
+                  htmlFor="end_date"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  End Date
+                </label>
+                <input
+                  id="end_date"
+                  type="date"
+                  name="end_date"
+                  value={formData.end_date || ""}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                />
+              </div>
+            </div>
+          </div>
+          {isError && <p className="text-red-600 text-sm"> {isError}</p>}
+
+          <button
+            type="submit"
+            className="mt-2 mb-6 submit_btn bg-black text-white rounded-full px-5 py-3 text-xl font-bold shadow-lg w-full  hover:bg-purple-300  focus:outline-none"
+          >
+            Book now
+          </button>
+        </form>
       </div>
     </div>
   );
-}
+};
 
 export default ReservationPageFamily;
