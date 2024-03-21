@@ -8,6 +8,13 @@ const BookingUser = () => {
   
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
+  const setLocalStorageData = () => {
+    const selectedRooms = selectedIndices.length;
+    const price = getPriceForSelectedRooms();
+    localStorage.setItem('selectedRooms', selectedRooms.toString());
+    localStorage.setItem('price', price.toString());
+  };
+
   const getPriceForSelectedRooms = () => {
     const prices = [170, 210, 350, 400];
     const selectedRooms = selectedIndices.length;
@@ -15,18 +22,20 @@ const BookingUser = () => {
   };
 
   const handleButtonClick = (index: number) => {
-    let updatedSelectedIndices: number[] = [];
+  let updatedSelectedIndices: number[] = [];
 
-    for (let i = 0; i <= index; i++) {
-      updatedSelectedIndices.push(i);
-    }
+  for (let i = 0; i <= index; i++) {
+    updatedSelectedIndices.push(i);
+  }
 
-    setSelectedIndices(updatedSelectedIndices);
-  };
+  setSelectedIndices(updatedSelectedIndices);
+  setLocalStorageData(); // Call the function to update localStorage
+};
 
-  const handleBooking = () => {
-    console.log('Room booked!', selectedIndices);
-  };
+const handleBooking = () => {
+  console.log('Room booked!', selectedIndices);
+  setLocalStorageData(); // Call the function to update localStorage
+};
 
   return (
   
@@ -35,7 +44,7 @@ const BookingUser = () => {
         <div className="flex justify-items-center h-full w-full object-cover">
           <img
             className="justify-center rounded-3xl"
-            src="https://img2.pic.in.th/pic/cat1.jpeg"
+            src="https://cattyhotels.com/_vercel/image?url=https://vxihgoizwagzpzjnsoxa.supabase.co/storage/v1/object/public/hotels/bangkok/mango-cat-hotel-thapra/images/mango-cat-hotel-thapra-bangkok-q7h3x-Screenshot2023-06-28at17.10.03.png&w=640&q=100"
             alt="cat1.jpeg"
             style={{ maxWidth: '160px', maxHeight: 'auto' }}
           />

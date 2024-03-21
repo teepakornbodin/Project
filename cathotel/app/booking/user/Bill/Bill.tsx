@@ -1,21 +1,78 @@
 "use client"
-import React from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 
 
 const BillPage = () => {
+
+    const [selectedRooms, setSelectedRooms] = useState(0);
+    const [price, setPrice] = useState(0);
+  
+    useEffect(() => {
+      const storedRooms = localStorage.getItem('selectedRooms');
+      const storedPrice = localStorage.getItem('price');
+      if (storedRooms && storedPrice) {
+        setSelectedRooms(parseInt(storedRooms, 10));
+        setPrice(parseInt(storedPrice, 10));
+      }
+    }, []);
+
+
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [start_date, setStartDate] = useState("");
+    const [end_date, setEndDate] = useState("");
+    const [status, setStatus] = useState("ACTIVE");
+    useEffect(() => {
+        const name = localStorage.getItem('name');
+        const phone = localStorage.getItem('phone');
+        const start_date = localStorage.getItem('start_date');
+        const end_date = localStorage.getItem('end_date');
+        const status = localStorage.getItem('status');
+        if (name && phone && start_date && end_date && status) {
+          setName(name);
+          setPhone(phone);
+          setStartDate(start_date);
+          setEndDate(end_date);
+          setStatus(status);
+        }
+      }, []);
+
+
+
   return (
-    <div className="border-purple-600 rounded-2xl border  divide-y divide-gray-200 max-w-sm mx-auto mt-20">
+    <div className="border-purple-600 rounded-2xl border  divide-y divide-gray-200 max-w-sm mx-auto mt-16">
     <div className="p-6">
         <div className="flex justify-between">
-            <h2 className="text-lg font-semibold text-gray-600">Booker</h2>
+            <h2 className="text-2xl font-bold text-gray-600">Booker</h2>
         </div>
-        <p className="mt-0.5 text-sm text-gray-500">ชื่อของผู้ใช้</p>
-        <p className="mt-8"><span className="text-4xl font-bold tracking-tight text-gray-900">49</span>
-            <span className="text-base font-medium text-gray-500">  Bath</span>
+        <p className="mt-0.5 text-xl text-gray-500">{name}</p>
+        
+        <p className="mt-3">
+            <span className="text-base font-medium text-gray-500">  Number of cats/room: {selectedRooms} </span>
         </p>
-        <a href="#" target="_blank"
-            className="flex justify-center w-full py-3 mt-4 text-sm font-medium text-white bg-purple-600 border border-indigo-600 rounded active:text-indigo-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring">Confirmed</a>
+        <p className="mt-1">
+            <span className="text-base font-medium text-gray-500">  Phone Number: {phone} </span>
+        </p>
+        <p className="mt-1">
+            <span className="text-base font-medium text-gray-500">  Start Date: {start_date} </span>
+        </p>
+        <p className="mt-1">
+            <span className="text-base font-medium text-gray-500">  End Date: {end_date} </span>
+        </p>
+        <p className="mt-1">
+            <span className="text-base font-medium text-gray-500">  Status: {status} </span>
+        </p>
+        <p className="mt-4 ml-52">
+            <span className="text-base font-medium text-gray-500">  Price </span>
+            <span className="text-4xl font-bold tracking-tight text-gray-900">{price}</span>
+            <span className="text-base font-medium text-gray-500">  ฿</span>
+        </p>
+
+             <Link href="/booking/user">
+            <p className="flex justify-center w-full py-3 mt-4 text-sm font-medium text-white bg-purple-600 border border-indigo-600 rounded active:text-indigo-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring ">Confirmed</p>
+            </Link> 
     </div>
     <div className="px-6 pt-6 pb-8">
         <h3 className="text-sm font-medium text-gray-900">Details</h3>
@@ -52,6 +109,7 @@ const BillPage = () => {
                 <span className="text-sm text-gray-500">cathotel@kkumail.com</span>
             </li>
 
+    
         </ul>
     </div>
 </div>

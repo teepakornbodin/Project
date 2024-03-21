@@ -6,7 +6,12 @@ import Link from "@/node_modules/next/link";
 
 const BookingUserSuperior = () => {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
-
+  const setLocalStorageData = () => {
+    const selectedRooms = selectedIndices.length;
+    const price = getPriceForSelectedRooms();
+    localStorage.setItem('selectedRooms', selectedRooms.toString());
+    localStorage.setItem('price', price.toString());
+  };
   const getPriceForSelectedRooms = () => {
     const prices = [200, 240, 370, 420];
     const selectedRooms = selectedIndices.length;
@@ -21,10 +26,12 @@ const BookingUserSuperior = () => {
     }
 
     setSelectedIndices(updatedSelectedIndices);
+    setLocalStorageData();
   };
 
   const handleBooking = () => {
     console.log('Room booked!', selectedIndices);
+    setLocalStorageData();
   };
 
   return (

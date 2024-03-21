@@ -6,6 +6,14 @@ import { kanit, inter } from "@/utils/font";
 const BookingUserFamily = () => {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
+  const setLocalStorageData = () => {
+    const selectedRooms = selectedIndices.length;
+    const price = getPriceForSelectedRooms();
+    localStorage.setItem('selectedRooms', selectedRooms.toString());
+    localStorage.setItem('price', price.toString());
+  };
+ 
+
   const getPriceForSelectedRooms = () => {
     const prices = [200, 240, 370, 420];
     const selectedRooms = selectedIndices.length;
@@ -20,10 +28,12 @@ const BookingUserFamily = () => {
     }
 
     setSelectedIndices(updatedSelectedIndices);
+    setLocalStorageData();
   };
 
   const handleBooking = () => {
     console.log('Room booked!', selectedIndices);
+    setLocalStorageData();
   };
 
   return (
@@ -32,7 +42,7 @@ const BookingUserFamily = () => {
         <div className="flex justify-items-center h-full w-full object-cover">
           <img
             className="justify-center rounded-3xl"
-            src="https://img2.pic.in.th/pic/cat1.jpeg"
+            src="https://cattyhotels.com/_vercel/image?url=https://vxihgoizwagzpzjnsoxa.supabase.co/storage/v1/object/public/hotels/pathumthani/kiss-cat-hotel/images/kiss-cat-hotel-pathumthani-zkafsj-ScreenShot2566-04-21at11.42.10.png&w=640&q=100"
             alt="cat1.jpeg"
             style={{ maxWidth: '160px', maxHeight: 'auto' }}
           />

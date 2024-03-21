@@ -6,6 +6,12 @@ import Link from "@/node_modules/next/link";
 
 const BookingUserSuit = () => {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+  const setLocalStorageData = () => {
+    const selectedRooms = selectedIndices.length;
+    const price = getPriceForSelectedRooms();
+    localStorage.setItem('selectedRooms', selectedRooms.toString());
+    localStorage.setItem('price', price.toString());
+  };
 
   const getPriceForSelectedRooms = () => {
     const prices = [200, 240, 370, 420];
@@ -21,10 +27,12 @@ const BookingUserSuit = () => {
     }
 
     setSelectedIndices(updatedSelectedIndices);
+    setLocalStorageData();
   };
 
   const handleBooking = () => {
     console.log('Room booked!', selectedIndices);
+    setLocalStorageData();
   };
 
   return (
@@ -33,7 +41,7 @@ const BookingUserSuit = () => {
         <div className="flex justify-items-center h-full w-full object-cover">
           <img
             className="justify-center rounded-3xl"
-            src="https://img2.pic.in.th/pic/cat1.jpeg"
+            src="https://static.wixstatic.com/media/a794d0_1b4bb9f0fb1549678af7d49855a3a153~mv2.jpeg/v1/crop/x_0,y_355,w_1242,h_1111/fill/w_394,h_353,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/IMG_5421.jpeg"
             alt="cat1.jpeg"
             style={{ maxWidth: '160px', maxHeight: 'auto' }}
           />

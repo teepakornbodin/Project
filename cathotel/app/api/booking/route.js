@@ -10,9 +10,12 @@ export const POST = async (request, response) => {
 
         const response = await Booking.create({
             name: req.name,
+            mobile: req.mobile,
             start_date: req.start_date,
             end_date: req.end_date,
             guest: req.guest,
+            room_type: req.room_type,
+            status: req.status
         })
 
         if (response) {
